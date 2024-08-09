@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "api/v1/registration")
+@RequestMapping(path = "api/v5/registration")
 @AllArgsConstructor
 public class RegistrationController {
     private final RegistrationService registrationService;
