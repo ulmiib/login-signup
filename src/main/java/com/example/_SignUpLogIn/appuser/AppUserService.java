@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -35,17 +36,22 @@ public class AppUserService implements UserDetailsService {
         if (userExists) {
             throw new IllegalStateException("Email already exists");
         }
+        appUserRepository.save(appUser);
+
         String token = UUID.randomUUID().toString();
+
         ConfirmationToken confirmationToken = new ConfirmationToken(
                 token,
                 LocalDateTime.now(),
                 LocalDateTime.now().plusMinutes(15),
                 appUser
         );
-        confirmationTokenService.saveConfirmationToken(confirmationToken);
+        confirmationTokenService.saveConfirmationToken(
+                confirmationToken);
         return token;
     }
 
-    public void enableAppUser(String email) {
+    public int enableAppUser(String email) {
+        return appUserRepository.enableAppUser(email);
     }
 }

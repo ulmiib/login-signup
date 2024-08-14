@@ -20,12 +20,12 @@ import java.util.Collections;
 
 public class AppUser implements UserDetails {
 
-    @Id
     @SequenceGenerator(
             name = "student_sequence",
             sequenceName = "student_sequence",
             allocationSize = 1
     )
+    @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "student_sequence"
